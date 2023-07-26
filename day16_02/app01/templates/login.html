@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Login</title>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- //Meta tags -->
+    <link rel="stylesheet" href={% static 'css/style.css' %} type="text/css" media="all"/><!-- Style-CSS -->
+    <link href={% static 'css/font-awesome.css' %} rel="stylesheet"><!-- font-awesome-icons -->
+</head>
+
+<body>
+<section class="w3l-form-36">
+    <div class="form-36-mian section-gap">
+        <div class="wrapper">
+            <div class="form-inner-cont">
+                <h3>Login now</h3>
+                <form method="post" class="signin-form">
+
+                    <div class="form-input">
+                        <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                        {{ form.email }}
+                    </div>
+
+                    <div style="color: red">
+                        {{ form.email.errors.0 }}
+                    </div>
+
+                    <div class="form-input">
+                        <span class="fa fa-key" aria-hidden="true"></span>
+                        {{ form.password }}
+                    </div>
+                    <div style="color: red">
+                        {{ form.password.errors.0 }}
+                    </div>
+
+
+                    <div class="form-input">
+                        <span class="fa fa-unlock" aria-hidden="true"></span>
+                        {{ form.code }}
+                    </div>
+                    <div style="color: red">
+                        {{ form.code.errors.0 }}
+                    </div>
+
+
+                    <div class="form-group" style="margin: 5px">
+                        <div class="col-xs-5">
+                            <img src="/image/code/" id="image_code">
+                        </div>
+                    </div>
+
+                    <div class="login-remember d-grid">
+                        <label class="check-remaind">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <p class="remember">Remember me</p>
+                        </label>
+                        <button class="btn theme-button">Login</button>
+                    </div>
+                    <div class="new-signup">
+                        <a href="#reload" class="signuplink">Forgot password?</a>
+                    </div>
+                </form>
+                <div class="social-icons">
+                    <p class="continue"><span>Or</span></p>
+                    <div class="social-login">
+                        <a href="/account/email">
+                            <div class="facebook">
+                                <span class="fa fa-facebook" aria-hidden="true"></span>
+
+                            </div>
+                        </a>
+                        <a href="#google">
+                            <div class="google">
+                                <span class="fa fa-google-plus" aria-hidden="true"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <p class="signup">Don’t have an account? <a href="/sign_up/" class="signuplink">Sign up</a></p>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

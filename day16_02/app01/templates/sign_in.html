@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Sign Up</title>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- //Meta tags -->
+    <link rel="stylesheet" href={% static 'css/style.css' %} type="text/css" media="all"/><!-- Style-CSS -->
+    <link href={% static 'css/font-awesome.css' %} rel="stylesheet"><!-- font-awesome-icons -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+</head>
+
+<body>
+<section class="w3l-form-36">
+    <div class="form-36-mian section-gap">
+        <div class="wrapper">
+            <div class="form-inner-cont">
+                <h3>Register Now</h3>
+
+                <form method="post" class="signin-form">
+
+                    <div class="form-input">
+                        <span class="fa fa-envelope-o" id="email" aria-hidden="true"></span>
+                        {{ form.email }}
+                    </div>
+
+                    <div style="color: red">
+                        {{ form.email.errors.0 }}
+                    </div>
+
+
+                    <div class="form-input">
+
+                        <span class="fa fa-user" aria-hidden="true"></span>
+
+                        {{ form.username }}
+                    </div>
+
+                    <div style="color: red">
+                        {{ form.username.errors.0 }}
+                    </div>
+
+
+                    <div class="form-input">
+                        <span class="fa fa-key" aria-hidden="true"></span>
+                        {{ form.password }}
+                    </div>
+
+                    <div style="color: red">
+                        {{ form.password.errors.0 }}
+                    </div>
+
+                    <div class="form-input">
+                        <span class="fa fa-key" aria-hidden="true"></span>
+                        {{ form.confirm_password }}
+                    </div>
+
+                    <div style="color: red">
+                        {{ form.confirm_password.errors.0 }}
+                    </div>
+
+                    <div class="form-input">
+                        <span class="fa fa-unlock" aria-hidden="true"></span>
+                        {{ form.code }}
+                    </div>
+
+                    <div style="color: red">
+                        {{ form.code.errors.0 }}
+                    </div>
+
+                    <div>
+                        <input type="button" style="margin-top: 10px" class="btn btn-dark btn-sm" id="sendCodeBtn"
+                               value="Get Verification Code"
+                               onclick="setTime()"/>
+                    </div>
+
+
+                    <div class="login-remember d-grid">
+                        <button class="btn btn-outline-success">Sign Up</button>
+                        <button class="btn btn-outline-secondary">Back to Login</button>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static '/js/jquery-3.7.0.min.js' %}"></script>
+<script type="text/javascript">
+    var countdown = 60;
+
+
+    function setTime() {
+        var email = $('#email').next().val()
+        var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if (email=='' || !reg.test(email)) {
+            alert('Please fill in the correct email address');
+            return;
+        }
+        if (countdown == 0) {
+            $('#sendCodeBtn').attr("disabled", false);
+            $('#sendCodeBtn').val("Get Verification Code");
+            countdown = 60;
+            return;
+        } else {
+            if (countdown == 60) {
+                $.ajax({
+                    url: '/account/email/',
+                    type: 'GET',
+                    data: {
+                        email: email,
+                    },
+                    dataType: 'JSON',
+                    success: function (res) {
+
+                    }
+                });
+            }
+            $('#sendCodeBtn').attr("disabled", true);
+            $('#sendCodeBtn').val("Send Again(" + countdown + ")");
+            countdown--;
+        }
+        setTimeout(function () {
+            setTime()
+        }, 1000)
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div>
+        <a href="/user/add/">
+            <button class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px">添加新员工</button>
+        </a>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            员工列表
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">age</th>
+                    <th scope="col">password</th>
+
+                    <th scope="col">salary</th>
+
+                    <th scope="col">creat_time</th>
+
+                    <th scope="col">gender</th>
+
+                    <th scope="col">department_id</th>
+                    <th scope="col">operation</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in employee_set %}
+                    <tr>
+                        <td>{{ obj.id }}</td>
+                        <td>{{ obj.name }}</td>
+                        <td>{{ obj.age }}</td>
+                        <td>{{ obj.password }}</td>
+                        <td>{{ obj.salary }}</td>
+                        <td>{{ obj.creat_time | date:"Y-m-d" }}</td>
+                        <td>{{ obj.get_gender_display }}</td>
+                        <td>{{ obj.depart.department_name }}</td>
+                        <td>
+                            <a href="/user/{{ obj.id }}/edit/" class="btn btn-primary btn-xs">编辑</a>
+                            <a href="/user/{{ obj.id }}/delete/" class="btn btn-danger btn-xs">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+        <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {{ page_str }}
+
+            <li style="float:right; width:300px">
+                    <form action="" method="get">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" name="page">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Jump</button>
+
+                        </div>
+                    </form>
+            </li>
+        </ul>
+        </form>
+        </div>
+
+    </nav>
+
+    </div>
+
+{% endblock %}
+
+{#insert into app01_employee(name, age, password, salary, creat_time, gender, depart_id) values('Alex',24,'123',3000,'2020-11-06',1,2);#}
+{##}
+{#insert into app01_employee(name, age, password, salary, creat_time, gender, depart_id) values('Jennis',23,'123',30000,'2010-11-06',2,1);#}

@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="card" style="margin-top: 50px">
+    <div class="card-header">
+        新建部门
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+
+            <form method="post">
+                <label for="exampleFormControlInput1" class="form-label">部门名称</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="部门名称" name="depart">
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px">提交</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

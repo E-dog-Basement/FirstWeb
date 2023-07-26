@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div style="margin-top: 20px; margin-bottom: 10px; height: 50px">
+        <a href="/number/add/">
+            <button class="btn btn-primary">添加新号码</button>
+        </a>
+
+        <div style="float: right; width: 300px;">
+            <form action="" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-describedby="basic-addon1" name="q">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="card" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="card-header">
+            号码列表
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Operation</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in page_set %}
+                    <tr>
+                        <td>{{ obj.id }}</td>
+                        <td>{{ obj.phone_number }}</td>
+                        <td>{{ obj.price }}</td>
+                        <td>{{ obj.get_level_display }}</td>
+                        <td>{{ obj.get_status_display }}</td>
+                        <td>
+                            <a href="/number/{{ obj.id }}/edit/" class="btn btn-primary btn-xs">编辑</a>
+                            <a href="/number/{{ obj.id }}/delete/" class="btn btn-danger btn-xs">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {{ page_str }}
+
+            <li style="float:right; width:300px">
+                    <form action="" method="get">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" name="page">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Jump</button>
+
+                        </div>
+                    </form>
+            </li>
+        </ul>
+        </form>
+        </div>
+
+    </nav>
+
+    </div>
+
+
+{% endblock %}
