@@ -123,6 +123,9 @@ def admin_logo(request):
 
     form = AdminLogoForm(data=request.POST, files=request.FILES, instance=admin_object)
     if form.is_valid():
+
+        # 删除原图片
+
         form.save()
         request.session['info']['logo'] = admin_object.logo.name
         request.session.set_expiry(60 * 60 * 24)
