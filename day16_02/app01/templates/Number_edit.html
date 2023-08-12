@@ -5,7 +5,7 @@
 
     <div class="card" style="margin-top: 50px">
         <div class="card-header">
-            编辑号码
+            Edit Number
         </div>
         <div class="card-body">
             <div class="mb-3">
@@ -15,9 +15,10 @@
                     {% for filed in form %}
                         <label for="exampleFormControlInput1" class="form-label">{{ filed.label }}</label>
                         {{ filed }}
-                        <span style="color: red; display: block">{{ filed.errors.0}}</span>
+                        <span style="color: red; display: block">{{ filed.errors.0 }}</span>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">提交</button>
+                    <button type="submit" class="btn btn-success" style="margin-top: 10px">Submit</button>
+                    <a href="/number/list/" class="btn btn-primary" style="margin-top: 10px">Back</a>
 
                 </form>
             </div>

@@ -9,7 +9,7 @@
 
         <button id="orderAdd" type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
-            新建订单
+            Add New Order
         </button>
 
 
@@ -28,7 +28,7 @@
 
     <div class="card" style="margin-top: 10px; margin-bottom: 10px">
         <div class="card-header">
-            订单列表
+            Order
         </div>
         <div class="card-body">
             <table class="table">
@@ -53,11 +53,11 @@
                         <td>
                             <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal"
                                     data-bs-target="#AddModal" uid={{ obj.id }}>
-                                编辑
+                                EDIT
                             </button>
                             <button type="button" class="btn btn-danger btn-delete" data-bs-toggle="modal"
                                     data-bs-target="#DeleteModal" uid={{ obj.id }}>
-                                删除
+                                DELETE
                             </button>
                         </td>
                     </tr>
@@ -120,8 +120,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
-                    <h4 class="alert-heading">是否确定删除？</h4>
-                    <p>删除后所有关联数据都会消失！</p>
+                    <h4 class="alert-heading">Are you sure delete？</h4>
+                    <p>All associated data disappears after deletion！</p>
                     <hr>
                     <div style="text-align: right">
 
@@ -225,7 +225,7 @@
                         dataType: 'JSON',
                         success: function (res) {
                             if (res.status) {
-                                alert("删除成功");
+                                alert("Delete successfully");
                                 location.reload();
                             } else {
                                 alert(res.error)
@@ -272,7 +272,7 @@
                     dataType: 'JSON',
                     success: function (res) {
                         if (res.status) {
-                            alert('修改成功')
+                            alert('Successful modification')
                             location.reload();
                         } else {
                             alert(res.error)

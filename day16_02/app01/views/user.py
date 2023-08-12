@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from app01 import models
 from django.views.decorators.csrf import csrf_exempt
@@ -52,5 +53,9 @@ def user_edit(request, nid):
 
 
 def user_delete(request, nid):
+    exist = models.Employee.objects.filter(id=nid).exists()
+    if not exist:
+        return JsonResponse({"status": False, "error":"此数据不存在"})
+
     models.Employee.objects.filter(id=nid).delete()
-    return redirect('/user/list/')
+    return JsonResponse({"status": True})

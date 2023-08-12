@@ -50,7 +50,7 @@
 
                     <div class="form-group" style="margin: 5px">
                         <div class="col-xs-5">
-                            <img src="/image/code/" id="image_code">
+                            <img src="/image/code/" id="image_code" onclick="refresh(this)">
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                         <button class="btn theme-button">Login</button>
                     </div>
                     <div class="new-signup">
-                        <a href="#reload" class="signuplink">Forgot password?</a>
+                        <a href="/ResetPassword/" class="signuplink">Forgot password?</a>
                     </div>
                 </form>
                 <div class="social-icons">
@@ -90,5 +90,13 @@
     </div>
 </section>
 </body>
+<script type="text/javascript">
+    function refresh(e) {
+        var date = new Date();
+        {#var el = e.srcElement || e.currentTarget; //兼容火狐和谷歌浏览器#}
+        e.src = '/image/code/?t=' + date.getTime(); //刷新验证码
+    }
+
+</script>
 
 </html>

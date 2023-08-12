@@ -4,15 +4,16 @@
 
 <div class="card" style="margin-top: 50px">
     <div class="card-header">
-        新建部门
+        Add New Department
     </div>
     <div class="card-body">
         <div class="mb-3">
 
             <form method="post">
-                <label for="exampleFormControlInput1" class="form-label">部门名称</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="部门名称" name="depart">
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px">提交</button>
+                <label for="exampleFormControlInput1" class="form-label">Department Name</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Department Name" name="depart" required>
+                <button type="submit" class="btn btn-success" style="margin-top: 10px">Submit</button>
+                <a href="/depart/list/" class="btn btn-primary" style="margin-top: 10px">Back</a>
             </form>
         </div>
     </div>

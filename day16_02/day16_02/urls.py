@@ -19,6 +19,8 @@ from django.urls import path, re_path
 from app01.views import depart, user, number, admin, account, order
 from django.conf import settings
 from django.views.static import serve
+from django.contrib.auth import views as auth_views
+from app01.utils.forms import AdminForgetForm
 
 
 urlpatterns = [
@@ -30,7 +32,7 @@ urlpatterns = [
 
     path('depart/list/', depart.depart_list),
     path('depart/add/', depart.depart_add),
-    path('depart/delete/', depart.depart_delete),
+    path('depart/<int:nid>/delete/', depart.depart_delete),
     path('depart/<int:nid>/edit/', depart.depart_edit),
 
     path('user/list/', user.user_list),
@@ -50,17 +52,26 @@ urlpatterns = [
     path('admin/<int:nid>/delete/', admin.admin_delete),
     path('admin/<int:nid>/reset/', admin.admin_reset),
     path('admin/logo_change/', admin.admin_logo),
+    path('admin/<int:nid>/delete_confirm/', admin.admin_delete_confirm),
 
     path('login/', account.account_login),
     path('logout/', account.account_logout),
     path('image/code/', account.image),
     path('account/email/', account.account_RegisterEmail),
     path('sign_up/', account.sign_up),
+    path('ResetPassword/', account.reset_password),
+    path('account/forgetPassword/', account.reset_password_confirm),
 
     path('order/list/', order.order_list),
     path('order/add/', order.order_add),
     path('order/<int:nid>/delete/', order.order_delete),
     path('order/edit/', order.order_edit),
     path('order/edit/save/', order.order_editSave),
+
+
+    # path('reset_password/', auth_views.PasswordResetView.as_view(template_name='reset_password.html', form_class=AdminForgetForm), name= 'reset_password', ),
+    # path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    # path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
 ]

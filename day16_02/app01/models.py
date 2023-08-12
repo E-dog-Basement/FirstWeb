@@ -56,17 +56,17 @@ class Admin(models.Model):
 
 
 class Order(models.Model):
-    oid = models.CharField(verbose_name='订单号', max_length=64)
-    title = models.CharField(verbose_name='名称', max_length=32)
-    price = models.IntegerField(verbose_name='价格')
+    oid = models.CharField(verbose_name='Oid', max_length=64)
+    title = models.CharField(verbose_name='Title', max_length=32)
+    price = models.IntegerField(verbose_name='Price')
 
     status_choice = (
-        (1, '待支付'),
-        (2, '已支付')
+        (1, 'Paid'),
+        (2, 'Not Paid')
     )
 
-    status = models.SmallIntegerField(verbose_name='状态', choices=status_choice, default=1)
-    admin = models.ForeignKey(verbose_name='管理员', to='Admin', on_delete=models.CASCADE)
+    status = models.SmallIntegerField(verbose_name='Status', choices=status_choice, default=1)
+    admin = models.ForeignKey(verbose_name='Admin', to='Admin', on_delete=models.CASCADE)
 
 
 class Logo(models.Model):

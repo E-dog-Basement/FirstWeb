@@ -5,6 +5,7 @@ from django import forms
 from django.forms.widgets import NumberInput
 from app01.utils.bootstrap import BootStrapModelForm
 from app01.utils import encrypt
+from django.contrib.auth.forms import PasswordResetForm
 
 
 class UserForm(BootStrapModelForm):
@@ -85,22 +86,22 @@ class AdminEditForm(BootStrapModelForm):
 
 class AdminResetForm(BootStrapModelForm):
     check_password = forms.CharField(
-        label='确认密码',
-        widget=forms.PasswordInput(render_value=True)
+        label='Confirm Password',
+        widget=forms.PasswordInput(render_value=True, attrs={'placeholder': 'Confirm Password'})
     )
 
     class Meta:
         model = models.Admin
         fields = ['password', 'check_password']
         widgets = {
-            'password': forms.PasswordInput(render_value=True)
+            'password': forms.PasswordInput(render_value=True, attrs={'placeholder': 'Password'}),
         }
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
         exits = models.Admin.objects.filter(id=self.instance.pk, password=encrypt.md5(password)).exists()
         if exits:
-            raise ValidationError('密码不能与之前一致')
+            raise ValidationError('Password cannot be the same as before')
         pwd = encrypt.md5(self.cleaned_data.get('password'))
         return pwd
 
@@ -109,7 +110,7 @@ class AdminResetForm(BootStrapModelForm):
         password = self.cleaned_data.get('password')
 
         if check_password != password:
-            raise ValidationError('密码不一致')
+            raise ValidationError('Password inconsistency')
         return check_password
 
 
@@ -186,4 +187,16 @@ class AdminSignUpForm(BootStrapModelForm):
         if check_password != password:
             raise ValidationError('Password inconsistency')
         return check_password
+
+
+class AdminForgetForm(BootStrapModelForm):
+    code = forms.CharField(
+        label='Verification Code',
+        widget=forms.TextInput(attrs={'placeholder': 'Verification Code'}),
+        required=True,
+    )
+
+    class Meta:
+        model = models.Admin
+        fields = ['email', 'code']
 

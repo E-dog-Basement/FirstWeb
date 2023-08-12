@@ -77,21 +77,29 @@ def admin_edit(request, nid):
 def admin_delete(request, nid):
     row_object = models.Admin.objects.filter(id=nid).first()
     if not row_object:
-        return render(request, 'error.html', {'msg': '该数据不存在'})
+        return render(request, 'error.html', {'msg': 'The data does not exist'})
+    return render(request, 'admin_delete.html')
+
+
+def admin_delete_confirm(request, nid):
+    row_object = models.Admin.objects.filter(id=nid).first()
+    if not row_object:
+        return render(request, 'error.html', {'msg': 'The data does not exist'})
 
     models.Admin.objects.filter(id=nid).delete()
-    return redirect('/admin/list')
+    request.session.clear()
+    return redirect('/login')
 
 @csrf_exempt
 def admin_reset(request, nid):
     row_object = models.Admin.objects.filter(id=nid).first()
     if not row_object:
-        return render(request, 'error.html', {'msg': '该数据不存在'})
+        return render(request, 'error.html', {'msg': 'The data does not exist'})
 
     if request.method == 'GET':
         form = AdminResetForm()
         context = {
-            'title': '重置密码',
+            'title': 'Reset Password',
             'form': form
         }
         return render(request, 'Add_layout.html', context)
@@ -103,7 +111,7 @@ def admin_reset(request, nid):
     else:
         context = {
             'form': form,
-            'title': '重置密码'
+            'title': 'Reset Password'
         }
         return render(request, 'Add_layout.html', context)
 
@@ -136,3 +144,4 @@ def admin_logo(request):
             'title': 'Change Logo'
         }
         return render(request, 'Add_layout.html', context)
+

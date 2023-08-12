@@ -3,15 +3,16 @@
 {% block content %}
 <div class="card" style="margin-top: 50px">
     <div class="card-header">
-        编辑部门
+        Edit Department
     </div>
     <div class="card-body">
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">部门名称</label>
+            <label for="exampleFormControlInput1" class="form-label">Department Name</label>
 
             <form method="post">
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder={{ depart_object.department_name }} name="depart">
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px">提交</button>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder={{ depart_object.department_name }} name="depart" required>
+                <button type="submit" class="btn btn-success" style="margin-top: 10px">Submit</button>
+                <a href="/depart/list/" class="btn btn-primary" style="margin-top: 10px">Back</a>
             </form>
         </div>
     </div>

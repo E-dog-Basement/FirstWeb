@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from app01 import models
 from django.views.decorators.csrf import csrf_exempt
@@ -25,10 +26,13 @@ def depart_add(request):
     return redirect('/depart/list/')
 
 
-def depart_delete(request):
-    nid = request.GET.get('nid')
+def depart_delete(request, nid):
+    exist = models.Department.objects.filter(id=nid).exists()
+    if not exist:
+        return JsonResponse({"status": False, "error":"此数据不存在"})
+
     models.Department.objects.filter(id=nid).delete()
-    return redirect('/depart/list/')
+    return JsonResponse({"status": True})
 
 
 @csrf_exempt
@@ -40,7 +44,6 @@ def depart_edit(request, nid):
         return render(request, 'depart_edit.html', {'depart_object': depart_object})
 
     update_department = request.POST.get('depart')
-
     models.Department.objects.filter(id=nid).update(department_name=update_department)
 
     return redirect('/depart/list/')

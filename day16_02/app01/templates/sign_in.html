@@ -81,7 +81,8 @@
 
                     <div class="login-remember d-grid">
                         <button class="btn btn-outline-success">Sign Up</button>
-                        <button class="btn btn-outline-secondary">Back to Login</button>
+                        <a href="/login" class="btn btn-outline-secondary"> Back to Login </a>
+
                     </div>
 
 
@@ -102,7 +103,7 @@
     function setTime() {
         var email = $('#email').next().val()
         var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-        if (email=='' || !reg.test(email)) {
+        if (email == '' || !reg.test(email)) {
             alert('Please fill in the correct email address');
             return;
         }

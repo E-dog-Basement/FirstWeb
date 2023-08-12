@@ -3,12 +3,12 @@
 {% block content %}
     <div>
         <a href="/user/add/">
-            <button class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px">添加新员工</button>
+            <button class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px">Add Employee</button>
         </a>
     </div>
     <div class="card">
         <div class="card-header">
-            员工列表
+            Employee
         </div>
         <div class="card-body">
             <table class="table">
@@ -16,17 +16,17 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
-                    <th scope="col">age</th>
-                    <th scope="col">password</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Password</th>
 
-                    <th scope="col">salary</th>
+                    <th scope="col">Salary</th>
 
-                    <th scope="col">creat_time</th>
+                    <th scope="col">Creat_Time</th>
 
-                    <th scope="col">gender</th>
+                    <th scope="col">Gender</th>
 
-                    <th scope="col">department_id</th>
-                    <th scope="col">operation</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Operation</th>
 
 
                 </tr>
@@ -43,8 +43,11 @@
                         <td>{{ obj.get_gender_display }}</td>
                         <td>{{ obj.depart.department_name }}</td>
                         <td>
-                            <a href="/user/{{ obj.id }}/edit/" class="btn btn-primary btn-xs">编辑</a>
-                            <a href="/user/{{ obj.id }}/delete/" class="btn btn-danger btn-xs">删除</a>
+                            <a href="/user/{{ obj.id }}/edit/" class="btn btn-primary btn-xs">EDIT</a>
+                            <button type="button" class="btn btn-danger btn-delete" data-bs-toggle="modal"
+                                    data-bs-target="#DeleteModal" uid={{ obj.id }}>
+                                DELETE
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -54,18 +57,18 @@
     </div>
 
 
-        <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example">
         <ul class="pagination">
             {{ page_str }}
 
             <li style="float:right; width:300px">
-                    <form action="" method="get">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-describedby="basic-addon1" name="page">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Jump</button>
+                <form action="" method="get">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="page">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Jump</button>
 
-                        </div>
-                    </form>
+                    </div>
+                </form>
             </li>
         </ul>
         </form>
@@ -73,10 +76,60 @@
 
     </nav>
 
+        <!-- DeleteModal -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <h4 class="alert-heading">Are you sure delete？</h4>
+                    <p>All associated data disappears after deletion！</p>
+                    <hr>
+                    <div style="text-align: right">
+
+                        <button id=DeleteConfirm type="button" class="btn btn-danger" id="DeleteConfirm">Delete</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
 
-{#insert into app01_employee(name, age, password, salary, creat_time, gender, depart_id) values('Alex',24,'123',3000,'2020-11-06',1,2);#}
-{##}
-{#insert into app01_employee(name, age, password, salary, creat_time, gender, depart_id) values('Jennis',23,'123',30000,'2010-11-06',2,1);#}
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            btnDelete();
+            btnDeleteConfirm();
+        })
+
+        function btnDelete() {
+            $('.btn-delete').click(function () {
+                Delete_ID = $(this).attr("uid");
+            })
+        }
+
+        function btnDeleteConfirm() {
+            $("#DeleteConfirm").click(function () {
+
+                    $.ajax({
+                        url: "/user/" + Delete_ID + "/delete/",
+                        type: 'GET',
+                        dataType: 'JSON',
+                        success: function (res) {
+                            if (res.status) {
+                                alert("Delete successfully");
+                                location.reload();
+                            } else {
+                                alert(res.error)
+                            }
+                        }
+                    })
+                }
+            )
+        }
+
+    </script>
+{% endblock %}
